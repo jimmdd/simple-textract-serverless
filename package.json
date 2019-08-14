@@ -1,0 +1,28 @@
+{
+  "name": "simple-textract-serverless",
+  "version": "1.0.0",
+  "description": "serverless textract api",
+  "main": "handler.js",
+  "dependencies": {},
+  "devDependencies": {
+    "aws-sdk": "^2.510.0",
+    "serverless-offline": "^5.10.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jimmdd/simple-textract-serverless.git"
+  },
+  "keywords": [
+    "serverless",
+    "textract"
+  ],
+  "author": "Jinglun Ding",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jimmdd/simple-textract-serverless/issues"
+  },
+  "homepage": "https://github.com/jimmdd/simple-textract-serverless#readme"
+}

@@ -1,0 +1,46 @@
+
+service: textract-service
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
+  apiKeys: 
+    - ${self:provider.stage}-textract-service
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:GetObject"
+      Resource:
+        - arn:aws:s3:::textract-dev-test-documentation
+    - Effect: "Allow"
+      Action: 
+        - "textract: * "
+      Resource:
+        - "*"
+  # vpc:
+  #   securityGroupIds:
+  #     - ${ssm:/api/vpc/security_group~true}
+  #   subnetIds:
+  #     - ${ssm:/api/vpc/subnet~true}
+
+plugins:
+  - serverless-offline
+  # - serverless-webpack 
+
+functions:
+  analyze:
+    # References stage variable above to provide unique function names based on stage
+    name: ${self:provider.stage}-textract-analyze
+    handler: handler.analyze
+    description: method to analyze document and extract data
+    events:
+      - http:
+          path: analyze
+          method: post
+          private: true

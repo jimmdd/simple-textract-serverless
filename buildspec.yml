@@ -1,0 +1,39 @@
+version: 0.2
+
+# you can define environment variables here and/or pull secure variables in from parameter store
+# env:
+#   variables:
+#     CONFIG_BUCKET: "project-config"
+#     NAME_OF_VARIABLE: "variable-name"
+#   parameter-store:
+#     NAME_OF_VARIABLE: "/path/to/parameter"
+
+phases:
+  install:
+    commands:
+      - echo INSTALLING DEPENDENCIES
+      - npm install -g serverless
+      # for python projects that include a requirements file
+      # - npm install --save serverless-python-requirements
+      - npm install
+    # finally:
+    #   - echo This always runs even if the installs command fails
+  # you can define any pre build commands here 
+  # pre_build:
+  #   commands:
+  #     - echo RETRIEVING CONFIG FILE
+  #     - aws s3 cp s3://$CONFIG_BUCKET-$STAGE/ ./ --recursive
+  #   finally:
+  #     - echo This always runs even if the copy from s3 bucket command fails
+  build:
+    commands:
+      - echo DEPLOYING TO $STAGE
+      - sls deploy -s $STAGE
+    # finally:
+    #   - echo This always runs even if the serverless deploy command fails
+  # you can define post build commands here
+  # post_build:
+  #   commands:
+  #     - echo EXPORTING SWAGGER FILE TO S3 BUCKET
+  #     for api services that will be displayed on the developer's portal
+  #     - aws lambda invoke --function-name $STAGE-parseSwagger --payload $CONTEXT outputfile.txt
